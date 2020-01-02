@@ -9,10 +9,10 @@ echo "gnuradio - rtprio 99" | sudo tee -a /etc/security/limits.conf
 sudo mv 90-usrp.conf /etc/sysctl.d/
 sudo apt update
 
-sudo apt -y install ipython python-matplotlib python-ipython python-scipy python-numpy python-pip python-qwt5-qt4 python-wxgtk3.0 multimon sox
+sudo apt -y install ipython python3-matplotlib python3-ipython python3-scipy python3-numpy python3-pip multimon sox
 
 ### PYBOMBS
-pip install pybombs
+pip3 install pybombs
 
 pybombs -v recipes add gr-recipes git+https://github.com/gnuradio/gr-recipes.git
 pybombs -v recipes add gr-etcetera git+https://github.com/gnuradio/gr-etcetera.git
@@ -57,10 +57,10 @@ make
 make install
 
 ### LimeSDR
-cd
-pybombs -v install limesuite
-sudo cp /home/gnuradio/pybombs/src/limesuite/udev-rules/64-limesuite.rules /etc/udev/rules.d/
-pybombs -v install gr-limesdr
+# cd
+# pybombs -v install limesuite
+# sudo cp /home/gnuradio/pybombs/src/limesuite/udev-rules/64-limesuite.rules /etc/udev/rules.d/
+# pybombs -v install gr-limesdr
 
 ### XTRX SDR
 cd /home/gnuradio/src
@@ -93,11 +93,10 @@ pybombs -v install soapybladerf
 pybombs -v install uhd
 sudo cp pybombs/src/uhd/host/utils/uhd-usrp.rules /etc/udev/rules.d/
 pybombs/lib/uhd/utils/uhd_images_downloader.py
-pybombs -v install soapyuhd
+#pybombs -v install soapyuhd
 
 ### GNU RADIO
-pybombs -v install gnuradio
-/home/gnuradio/pybombs/libexec/gnuradio/grc_setup_freedesktop install
+sudo -H pip3 install --upgrade git+https://github.com/gnuradio/pybombs.git
 rm -rf ~/.gnome/apps/gnuradio-grc.desktop
 rm -rf ~/.local/share/applications/gnuradio-grc.desktop
 mv gnuradio-grc.desktop .local/share/applications/gnuradio-grc.desktop
@@ -106,11 +105,11 @@ mv gnuradio-grc.desktop .local/share/applications/gnuradio-grc.desktop
 pybombs -v install gr-iio
 
 ### GR OSMOSDR
-pybombs -v install gr-osmosdr
+# pybombs -v install gr-osmosdr
 
 ### GQRX
-pybombs -v install gqrx
-xdg-icon-resource install --context apps --novendor --size 96 Pictures/gqrx-icon.png
+#pybombs -v install gqrx
+#xdg-icon-resource install --context apps --novendor --size 96 Pictures/gqrx-icon.png
 
 ### FOSPHOR
 sudo apt-get -y install libfreetype6-dev ocl-icd-opencl-dev python-opengl lsb-core
@@ -134,11 +133,11 @@ pybombs -v install gr-ieee-80211
 pybombs -v install gr-ieee-802154
 pybombs -v install gr-rds
 pybombs -v install inspectrum
-pybombs -v install gr-adsb
-pybombs -v install gr-air-modes
-pybombs -v install gr-ais
-pybombs -v install gr-bluetooth
-pybombs -v install gr-nmea
+# pybombs -v install gr-adsb
+# pybombs -v install gr-air-modes
+# pybombs -v install gr-ais
+# pybombs -v install gr-bluetooth
+# pybombs -v install gr-nmea
 xdg-icon-resource install --context apps --novendor --size 96 Pictures/inspectrum-icon.png
 
 ### Install srsLTE
