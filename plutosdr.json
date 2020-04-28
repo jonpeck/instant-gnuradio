@@ -1,0 +1,50 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-ovf",
+      "headless": true,
+      "source_path": "vms/gnuradio/instant-gnuradio.ova",
+      "ssh_username": "gnuradio",
+      "ssh_password": "gnuradio",
+      "shutdown_command": "sudo systemctl poweroff",
+      "guest_additions_mode": "disable",
+      "vm_name": "instant-plutosdr-test",
+      "export_opts": [
+        "--manifest",
+        "--vsys", "0",
+        "--description", "Instant PlutoSDR",
+        "--version", "instant-1"
+      ],
+      "format": "ova",
+      "output_directory": "vms/plutosdr",
+	  "vboxmanage": [
+            ["modifyvm", "{{.Name}}", "--memory", "6144"]
+		]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "assets/Xilinx_Vivado_SDK_2018.2_0614_1954.tar.gz",
+      "destination": "Downloads/Xilinx_Vivado_SDK_2018.2_0614_1954.tar.gz"
+    },
+	{
+      "type": "file",
+      "source": "assets/install_config.txt",
+      "destination": "Downloads/install_config.txt"
+    },
+	{
+		"type": "shell",
+		"scripts": [
+			"scripts/setup-plutosdr.sh"
+		]
+	},
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/cleanup.sh"
+      ],
+      "execute_command": "sudo -E bash '{{.Path}}'"
+    }
+  ]
+}
